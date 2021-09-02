@@ -20,8 +20,6 @@ public class main {
         ix = lst.indexOf(pt3);
         System.out.println(ix);
 
-        PTag pt4 = new PTag("p2", "jeg er et p2 tag");
-
         ix = lst.indexOf(pt3);
         System.out.println(ix);
 
@@ -47,8 +45,6 @@ public class main {
                 ite.remove();
             }
         }
-
-        System.exit(1);
 
         for(int i = lst.size()-1; i>=0 ; i--){
             HTMLTag tag = lst.get(i);
