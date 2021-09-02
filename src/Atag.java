@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class Atag extends HTMLStyle {
 
     private String url;
+    private String urlName;
+
     public static ArrayList<String> links;
 
     public Atag(String id, String text) {
@@ -29,13 +31,17 @@ public class Atag extends HTMLStyle {
         this.url = url;
     }
 
-
-//<a href="https://www.dr.dk/">Link til DR<a></a>
+    public String getUrlName() {
+        return urlName;
+    }
+    public void setUrlName(String urlName) {
+        this.urlName = urlName;
+    }
 
 
     @Override
      String toHTMLstring() {
-        return "<a " + this.toSyleString() + ' ' + " href" + "=\"" + this.getUrl() + "\">" + this.getText() + "<a></a>";
+        return "<a " + this.toSyleString() + ' ' + " href" + "=\"" + this.getUrl() + "\">" + this.getUrlName() + "<a></a>";
     }
 
     @Override

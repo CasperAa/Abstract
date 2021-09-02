@@ -68,7 +68,8 @@ public abstract class HTMLStyle extends HTMLTag{
         return "style=" + '"' + "background-color: rgb" + '(' + this.red + ',' + this.green + ',' + this.blue + ");" + " color:" + this.getColor() + '"';
     }
 
-    public int randomInt(){
-        return 1+(int)(Math.random()*((253 - 1)+1));
+    public int randomInt(int max, int min){
+        return (int)(Math.random()*((max - min)+1));
     }
+
 }
