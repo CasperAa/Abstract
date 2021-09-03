@@ -1,62 +1,90 @@
+import java.awt.dnd.DragGestureEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.net.Inet4Address;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class main {
 
-    public static void main(String[] args) {
-
-        PTag pt1 = new PTag("p1", "jeg er et p1 tag");
-        PTag pt2 = new PTag("p2", "jeg er et p2 tag");
-
-        ArrayList<HTMLTag> lst = new ArrayList<>();
-        lst.add(pt1);
-        lst.add(pt2);
-
-        int ix = lst.indexOf(pt1);
-
-        System.out.println(ix);
-
-        PTag pt3 = new PTag("p1", "Jeg er et p3 tag");
-        ix = lst.indexOf(pt3);
-        System.out.println(ix);
-
-        ix = lst.indexOf(pt3);
-        System.out.println(ix);
-
-        boolean b = lst.contains(pt3);
-        System.out.println(b);
-
-        for(int i = 1; i<=4; i++){
-            HeaderTag ht3 = new HeaderTag("h"+ i, "Jeg er en h" + i, i);
-
-            lst.add(ht3);
-            for(int k=1; k<=4; k++){
-                PTag pt5 = new PTag("p"+ k, "Jeg er pTag nummer: " + k);
-                lst.add(pt5);
+    public static Map readUrl (String urlin, ArrayList<String> words) throws Exception{
+        URL url = new URL(urlin);
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        Map <String, Integer> mp = new HashMap<>();
+        for(String s: words) {
+            mp.put(s,0);
+        }
+        String urlstr = "";
+        while (urlstr != null) {
+            for (String sord : words) {
+                int i1 = urlstr.indexOf(sord);
+                if (i1 > 0) {
+                    Integer i = mp.get(sord);
+                    i++;
+                    mp.put(sord, i);
+                }
+                urlstr = br.readLine();
             }
         }
+        br.close();
+        return mp;
+    }
 
-        System.out.println("size =" + lst.size());
+    public static Map<String, Map<String, Integer>> getNyheder(ArrayList<String> ord) throws Exception{
+        ArrayList <String> urls = new ArrayList<>();
+        urls.add("https://dr.dk/");
+        urls.add("https://ekstrabladet.dk/");
+        urls.add("https://berlinske.dk/");
+        urls.add("https://bt.dk/");
+        Map<String, Map<String, Integer >> nyheder = getNyheder(ord);
 
-        Iterator<HTMLTag> ite = lst.iterator();
-        while (ite.hasNext()){
-            HTMLTag tg = ite.next();
-            if(tg instanceof PTag){
-                ite.remove();
+        Set<String> sset2 = nyheder.keySet();
+
+        for(String s: sset2){
+            System.out.println(s);
+        }
+        return nyheder;
+    }
+
+    public static void main(String[] args) throws Exception{
+
+        ArrayList <String> ord = new ArrayList<>();
+        ord.add("DBU");
+        ord.add("vold");
+        ord.add("Vacine");
+        ord.add("VM");
+        ord.add("Danmark");
+
+        Map <String, Map<String, Integer>> nyheder = getNyheder(ord);
+            Set<String> sset2 =  nyheder.keySet();
+
+            for( String s: sset2){
+                System.out.println("På " + s + " er føglende ord brugt: ");
+                Map <String, Integer> wmap = nyheder.get(s);
+                Set<String> sset3 = wmap.keySet();
+
+                for(String s2: sset3){
+                    int n = wmap.get(s2);
+                    String sn = "der står " + s2 + " " + n + " gange";
+                    System.out.println(sn);
+                }
+
+
             }
-        }
 
-        for(int i = lst.size()-1; i>=0 ; i--){
-            HTMLTag tag = lst.get(i);
-            if ( tag instanceof PTag) {
-                lst.remove(i);
-            }
-        }
+            Map<String, HTMLTag> map = new HashMap<>();
 
-        System.out.println("size =" + lst.size());
+            PTag p1 = new PTag("p1", "Jeg er p1");
+            PTag p2 = new PTag("p2", "Jeg er p2");
 
-        for(HTMLTag tag : lst){
-            tag.print();
-        }
+            map.put(p1.getId(), p1);
+            map.put(p2.getId(), p2);
+
+            HTMLTag ht1 = map.get("p1");
+            //ht1.print();
     }
 }

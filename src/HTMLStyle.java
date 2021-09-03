@@ -65,7 +65,8 @@ public abstract class HTMLStyle extends HTMLTag{
     }
 
     public String toSyleString(){
-        return "style=" + '"' + "background-color: rgb" + '(' + this.red + ',' + this.green + ',' + this.blue + ");" + " color:" + this.getColor() + '"';
+        //return "style=" + '"' + "background-color: rgb" + '(' + this.red + ',' + this.green + ',' + this.blue + ");" + " color:" + this.getColor() + '"';
+        return "";
     }
 
     public int randomInt(int max, int min){

@@ -25,4 +25,5 @@ public class HeaderTag extends HTMLStyle{
     void print() {
         System.out.println(this.toHTMLstring());
     }
+
 }
